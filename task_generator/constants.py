@@ -30,10 +30,10 @@ class TaskMode:
     SCENARIO = "scenario"
 
     class Random:
-        MIN_DYNAMIC_OBS = 10
-        MAX_DYNAMIC_OBS = 15
-        MIN_STATIC_OBS = 10
-        MAX_STATIC_OBS = 15
+        MIN_DYNAMIC_OBS = 2
+        MAX_DYNAMIC_OBS = 5
+        MIN_STATIC_OBS = 2
+        MAX_STATIC_OBS = 5
 
     class Scenario:
         RESETS_DEFAULT = 5

@@ -16,7 +16,10 @@ from task_generator.tasks.utils import get_predefined_task
 from task_generator.environments.environment_factory import EnvironmentFactory
 from task_generator.environments.gazebo_environment import GazeboEnvironment
 from task_generator.environments.flatland_environment import FlatlandRandomModel
+from task_generator.environments.arena2d_environment import Arena2dEnviorment
 
+import threading
+lock = threading.Lock()
 
 class TaskGenerator:
     """
@@ -60,7 +63,6 @@ class TaskGenerator:
         self.number_of_resets = 0
 
         self.reset_task()
-
         ## Timers
         rospy.Timer(rospy.Duration(0.5), self.check_task_status)
 
@@ -89,8 +91,12 @@ class TaskGenerator:
 
     def reset_task_srv_callback(self, req):
         rospy.logdebug("Task Generator received task-reset request!")
-
-        self.reset_task()
+        if(Utils.get_environment() == "arena2d"):
+            lock.acquire()
+            self.reset_task()
+            lock.release()
+        else:
+            self.reset_task()
 
         return EmptyResponse()
 
